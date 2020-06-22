@@ -1,32 +1,25 @@
 {
   "name": "angular-basic-schematics",
-  "version": "1.0.0",
-  "description": "CLI setup to create basic angular components.",
-  "main": "index.js",
-  "dependencies": {
-    "@angular-devkit/schematics": "^9.1.9",
-    "@angular-devkit/schematics-cli": "^0.901.9",
-    "@angular/cli": "^9.1.9"
-  },
-  "devDependencies": {},
+  "version": "0.0.0",
+  "description": "A blank schematics",
   "scripts": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sonallakhera/angular-basic-schematics.git"
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && jasmine src/**/*_spec.js"
   },
   "keywords": [
-    "angular",
-    "basic",
-    "components",
-    "schematics",
-    "cli"
+    "schematics"
   ],
-  "author": "Sonal Lakhera",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sonallakhera/angular-basic-schematics/issues"
+  "author": "",
+  "license": "MIT",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^9.1.9",
+    "@angular-devkit/schematics": "^9.1.9",
+    "typescript": "~3.8.2"
   },
-  "homepage": "https://github.com/sonallakhera/angular-basic-schematics#readme"
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "@types/jasmine": "~3.5.0",
+    "jasmine": "^3.5.0"
+  }
 }
