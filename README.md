@@ -1,6 +1,10 @@
-# Getting Started With Schematics with Angular Basic Schematics
+# Getting Started With Angular Basic Schematics
 
-Angular Basic Schematics is a basic Schematic implementation that helps create basic angular components required in an application. Like tables, details pages, toolbars.
+Angular Basic Schematics is a basic schematic implementation that helps create basic angular components required in an application. Like tables, details pages, toolbars.
+
+### Requirements
+
+To start up with the ABS, `@angular/cli` and `@angular-devkit/schematics-cli` needs to be installed gobally in your system. 
 
 ### Testing
 
