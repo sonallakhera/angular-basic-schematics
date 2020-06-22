@@ -17,6 +17,7 @@ describe('base-module', () => {
       __DIST + '/test-name/routes.ts',
       __DIST + '/test-name/router/resolver/test-name.resolver.ts',
       __DIST + '/test-name/store/test-name.service.ts',
+      __DIST + '/shared/test-name/test-name.module.ts',
     ]);
   });
 });
