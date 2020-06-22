@@ -7,10 +7,6 @@
             "type": "string",
             "description": "Name of module"
         },
-        "path": {
-            "type": "string",
-            "description": "Path where the generated files should be stored"
-        }
     },
     "required": [
         "name"

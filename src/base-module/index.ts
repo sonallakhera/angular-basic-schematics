@@ -17,7 +17,7 @@ import { __DIST } from './../constants';
 // per file.
 export function baseModule(_options: any): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    const folderPath = normalize(strings.dasherize(`${__DIST}${_options.path || ''}`));
+    const folderPath = normalize(strings.dasherize(`${__DIST}`));
     let files = url('./files');
     
     let newTree = apply(files, [
