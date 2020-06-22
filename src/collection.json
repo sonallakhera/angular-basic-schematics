@@ -6,10 +6,10 @@
       "factory": "./base-module/index#baseModule",
       "schema": "./base-module/schema.json"
     },
-    "add-dialog": {
-      "description": "Creates add dialog component and form.",
-      "factory": "./add-dialog/index#baseModule",
-      "schema": "./add-dialog/schema.json"
+    "add-form": {
+      "description": "Creates add form component.",
+      "factory": "./add-form/index#baseModule",
+      "schema": "./add-form/schema.json"
     },
     "list-component": {
       "description": "Creates a list component along with table & filters.",

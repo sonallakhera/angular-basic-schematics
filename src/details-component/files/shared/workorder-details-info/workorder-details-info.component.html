@@ -1,0 +1,173 @@
+<div class="rb-c-card rb-u-gap-bottom">
+
+    <div class="rb-c-card__header display--flex rb-u-flex--space-between">
+        <span class="title-sm title title-header title-xs">{{ getWorkorderHeading() }}</span>
+
+        <span class="rb-c-card__header_option">
+            <span
+                *ngIf="workorderApprovalStatusButtons[workorder.approval_status]"
+                [class]="workorderApprovalStatusButtons[workorder.approval_status].class"
+            >
+                {{ workorderApprovalStatusButtons[workorder.approval_status].label | translate }}
+            </span>
+
+            <span
+                *ngIf="workorder.is_billed === true"
+                class="rb-cursor-defult header-status-btn btn progress"
+            >
+                {{ 'WORKORDERS.BILLED' | translate }}
+            </span>
+
+            <span
+                *ngIf="workorder.is_billed === false"
+                class="rb-cursor-defult header-status-btn btn closed"
+            >
+                {{ 'WORKORDERS.UNBILLED' | translate }}
+            </span>
+
+            <span
+                *ngIf="workorderStatusButtons[workorder.work_order_status]"
+                [class]="workorderStatusButtons[workorder.work_order_status].class"
+            >
+                {{ workorderStatusButtons[workorder.work_order_status].label }}
+            </span>
+        </span>
+    </div>
+
+    <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+    <div class="vertical-align-middle profile-image inline-block rb-u-gap-bottom" *ngIf="workorder.author">
+        <rise-avatar
+            [size]="RISE_AVATAR.SIZE.LARGE"
+            [name]="getUserName(workorder.author)"
+            [src]="workorder.author && workorder.author.profile_img"
+            [round]="true"
+            [riseOpenUserDetails]="workorder.author"
+            [propertyAppType]="propertyAppType"
+        ></rise-avatar>
+    </div>
+
+    <div class="profile-wrapper">
+        <div class="profile-title title-color"
+            *ngIf="workorder.author"
+            [riseOpenUserDetails]="workorder.author"
+            [propertyAppType]="propertyAppType"
+        >
+            {{ getUserName(workorder.author) }}
+        </div>
+        <p class="profile-subtitle"> {{ workorder.created | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</p>
+    </div>
+
+    <ng-container *ngIf="workorder.problem_model">
+        <p class="opacity">{{ 'WORKORDERS.PROBLEM' | translate }}:</p>
+        <p class="rb-u-gap-bottom">{{ workorder.problem_model?.name || ('COMMON.EMPTY_FIELD' | translate) }}</p>
+    </ng-container>
+
+    <ngx-gallery *ngIf="workorder.images && workorder.images.length" [options]="getGalleryOptions(
+      workorder.images.length,
+      RISE_NGX_GALLERY.DEFAULT.COLUMNS,
+      RISE_NGX_GALLERY.DEFAULT.ROW_HEIGHT)" [images]="getGalleryImages(workorder.images)">
+    </ngx-gallery>
+
+    <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+    <dl class="rb-c-form-two-section rb-u-gap-bottom">
+        <ng-container *ngFor="let key of objectKeys(workorderDetailsList)">
+            {{isCompleteWOEnabled}}
+            <ng-container *ngIf="(workorder[key] || workorder[key] === false) &&
+                (
+                    (key !== 'completed_date' && key !== 'completed_by')
+                    || this.workorder.property.complete_workorder_enabled
+                )"
+            >
+                <ng-container
+                    *ngIf="!workorderDetailsList[key].disable"
+                    [ngTemplateOutlet]="workorderDetailsList[key].templateType
+                        ? workorderDetailsList[key].templateType
+                        : textTemplate"
+                    [ngTemplateOutletContext]="{
+                        $implicit: {
+                            label: workorderDetailsList[key].label,
+                            value: workorderDetailsList[key].field
+                            ? workorder[key][workorderDetailsList[key].field]
+                            : workorder[key]
+                        }
+                    }"
+                ></ng-container>
+            </ng-container>
+        </ng-container>
+    </dl>
+
+    <ng-container *ngIf="getNotifyUser() as notifyUser">
+        <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+        {{ (getUserType(notifyUser) | translate) + ' Information' }}
+
+        <dl class="rb-c-form-two-section rb-u-gap-bottom description">
+            <dt class="opacity">{{ (getUserType(notifyUser) | translate) + ' Name' }}</dt>
+            <dd class="text-right">{{ getUserName(notifyUser) }}</dd>
+
+            <dt class="opacity">{{ (getUserType(notifyUser) | translate) + ' Phone' }}</dt>
+            <dd class="text-right">{{ (notifyUser.phone_no | formatPhoneNumber)
+        || ('COMMON.EMPTY_FIELD' | translate) }}</dd>
+        </dl>
+    </ng-container>
+
+    <rise-custom-question-details
+        [questions]="workorder.custom_work_orders_questions"
+        [optionsClass]="'text-right'"
+    >
+    </rise-custom-question-details>
+
+    <ng-container *ngIf="workorder.description">
+        <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+        <dl>
+            <dt>{{ 'COMMON.DESCRIPTION' | translate }}</dt>
+            <dd class="description opacity"> <div [innerHTML]="workorder.description"></div></dd>
+        </dl>
+    </ng-container>
+
+</div>
+
+<!-- templates for workorder details defination list -->
+
+<ng-template #textTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value || ('COMMON.EMPTY_FIELD' | translate) }}</dd>
+</ng-template>
+
+<ng-template #dateTimeTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</dd>
+</ng-template>
+
+<ng-template #affirmationTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ (detail.value ? 'COMMON.YES' : 'COMMON.NO') | translate }}</dd>
+</ng-template>
+
+<ng-template #userTemplate let-detail>
+    <dt class="opacity grid-user-info-label">{{ detail.label | translate }}</dt>
+    <dd class="rb-grid-user-info text-right">
+        <rise-avatar
+            [size]="RISE_AVATAR.SIZE.SMALL"
+            [name]="getUserName(detail.value)"
+            [src]="detail.value?.profile_img"
+            [round]="true"
+            [riseOpenUserDetails]="detail.value"
+            [propertyAppType]="propertyAppType"
+        ></rise-avatar>
+        <p
+            [riseOpenUserDetails]="detail.value"
+            [propertyAppType]="propertyAppType"
+        >{{ getUserName(detail.value) }}</p>
+    </dd>
+</ng-template>
+
+<ng-template #assignGroupTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value.name + ' (group)' }}</dd>
+</ng-template>
+
+<!-- templates for workorder details defination list -->

@@ -1,0 +1,31 @@
+<div>
+
+  <div class="comments-list-container" *ngIf="logsList && logsList.length; else logsListEmpty">
+    <div *ngFor="let log of logsList" class="comments-listing">
+      <div class="profile-image inline-block vertical-align-middle">
+        <rise-avatar
+          [size]="RISE_AVATAR.SIZE.MEDIUM"
+          [name]="getUserName(log.user)"
+          [src]="log.user && log.user.profile_img"
+          [round]="true"
+          [riseOpenUserDetails]="log.user"
+        ></rise-avatar>
+      </div>
+      <div class="profile-wrapper vertical-align-middle">
+        <div class="profile-title" [riseOpenUserDetails]="log.user"> {{ getUserName(log.user) }} </div>
+        <div class="profile-subtitle"> {{ log.created | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }} </div>
+      </div>
+      <div class="description-container">
+        <p>{{ log.message }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #logsListEmpty>
+    <rise-no-data
+      [showButton]="false"
+      [message]="'WORKORDERS.LOGS.NO_DATA'"
+    ></rise-no-data>
+  </ng-template>
+
+</div>

@@ -6,7 +6,7 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js",
     "build:base-module": "rm -rf ./dist/ && npm build && schematics .:base-module --name=$NAME --dry-run=false",
-    "build:add-dialog": "rm -rf ./dist/ && npm build && schematics .:add-dialog --name=$NAME --dry-run=false",
+    "build:add-form": "rm -rf ./dist/ && npm build && schematics .:add-form --name=$NAME --dry-run=false",
     "build:list-component": "rm -rf ./dist/ && npm build && schematics .:list-component --name=$NAME --dry-run=false",
     "build:details-component": "rm -rf ./dist/ && npm build && schematics .:details-component --name=$NAME --dry-run=false"
   },

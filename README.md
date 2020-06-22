@@ -32,9 +32,9 @@ To generate a basic angular module:
 NAME=<moduleName> npm run build:base-module
 ```
 
-To generate a add dialog with form:
+To generate a add form:
 ```
-NAME=<moduleName> npm run build:add-dialog
+NAME=<moduleName> npm run build:add-form
 ```
 
 To generate a details page:

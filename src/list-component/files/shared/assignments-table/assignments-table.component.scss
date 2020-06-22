@@ -1,0 +1,25 @@
+.mat-column-category-name {
+  width: 10rem;
+}
+
+.mat-column-actions {
+  width: 5rem;
+}
+
+.rb-c-problems-list {
+  display: flex !important;
+  flex-direction: column;
+
+  .mat-list-item {
+    width: inherit;
+  }
+}
+
+.rb-c-description-cell {
+  width: 280px;
+  white-space: normal;
+}
+
+.rb-c-description-field {
+  width: 280px;
+}

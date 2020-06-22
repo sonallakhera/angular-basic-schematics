@@ -1,6 +1,6 @@
 {
-    "id": "addDialog",
-    "title": "Creates add dialog component and form.",
+    "id": "addForm",
+    "title": "Creates add form.",
     "type": "object",
     "properties": {
         "name": {

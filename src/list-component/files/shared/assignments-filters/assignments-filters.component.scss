@@ -1,0 +1,20 @@
+.rb-c-filter-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 1rem 1rem 2rem 1rem;
+
+    > * {
+        flex-basis: 32%;
+    }
+}
+
+.rb-c-filter-form__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    > button:last-child {
+        margin-left: 1rem;
+    }
+}

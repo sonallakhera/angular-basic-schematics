@@ -7,10 +7,10 @@ import { __DIST } from './../constants';
 const collectionPath = path.join(__dirname, '../collection.json');
 
 
-describe('add-dialog', () => {
+describe('add-form', () => {
   it('works', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = runner.runSchematic('add-dialog', { name: 'testName' }, Tree.empty());
+    const tree = runner.runSchematic('add-form', { name: 'testName' }, Tree.empty());
 
     expect(tree.files).toEqual([
       __DIST + '/test-name/test-name.module.ts',

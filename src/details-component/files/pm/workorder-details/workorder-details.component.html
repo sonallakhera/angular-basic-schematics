@@ -1,0 +1,118 @@
+<rise-workorder-details-toolbar
+    [workorder]="workorderData"
+    (addTaskTriggered)="openAddTaskDialog()"
+    (addLaborTriggered)="openAddLaborDialog()"
+    (addMaterialTriggered)="openAddMaterialDialog()"
+    (assignUserTriggered)="openAssignUserDialog()"
+    (startWorkorderTriggered)="startWorkorder()"
+    (closeWorkorderTriggered)="closeWorkorder($event)"
+    (completeWorkorderTriggered)="completeWorkorder($event)"
+    (approveWorkorderTriggered)="approveWorkorder()"
+    (declineWorkorderTriggered)="openDeclineWorkOrderDialog()"
+    (downloadPdfTriggered)="downloadPDF()"
+    (editWorkOrderTriggered)="openEditWorkorderDialog()"
+    (addToLedgerTriggered)="getAddToLedgerResident()"
+    (updateBillingStatus)="updateBillingStatus($event)"
+    (deleteWorkOrderTriggered)="openDeleteWorkOrderDialog()"
+>
+    <span actionButton [routerLink]="buildRouteLink([ LINK_ROUTES.WORKORDERS ])">
+        <mat-icon class="tool-bar-icon ">arrow_back_ios</mat-icon>
+        <span
+            class="mat-h4 tool-bar-h4"
+        > {{ 'WORKORDERS.BACK_TO_WORKORDERS' | translate | uppercase }} </span>
+    </span>
+</rise-workorder-details-toolbar>
+
+<!-- Wo full details section -->
+<div class="rb-wo-main-detail-container">
+    <!-- Wo details section -->
+    <div>
+        <rise-workorder-details-info
+            [workorder]="workorderData"
+            [timezone]="timezone"
+            [property]="property"
+            [propertyAppType]="propertyAppType"
+        ></rise-workorder-details-info>
+    </div>
+    <!-- Wo details section - Payment | Estimate Reports | Tasks -->
+    <div>
+        <rise-workorder-details-payment
+            (addPaymentTriggered)="openPaymentDialog()"
+            [workorder]="workorderData"
+        ></rise-workorder-details-payment>
+
+        <rise-workorder-estimate-report
+            [task]="estimateTask"
+        ></rise-workorder-estimate-report>
+
+        <rise-workorder-details-task
+            (addTaskTriggered)="openAddTaskDialog()"
+            (goToTaskTriggered)="goToTask($event)"
+            [workorder]="workorderData"
+            [fetchTasksList]="getWorkorderTasks.bind(this)"
+            [user]="user"
+            #taskDetailsSection
+        ></rise-workorder-details-task>
+    </div>
+</div>
+
+<!-- Tabs section - comments | log | labor | material -->
+<div class="rb-c-card rb-u-gap-bottom no-padding">
+    <mat-tab-group mat-stretch-tabs>
+
+        <mat-tab label="{{ 'COMMON.COMMENTS' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-comment-threads
+                    [commentsList]="workorderComments"
+                    [user]="user"
+                    [property]="property"
+                    [timezone]="timezone"
+                    [noDataMessage]="'WORKORDERS.COMMENTS.NO_DATA'"
+                    (addedComment)="addComment($event)"
+                ></rise-comment-threads>
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="{{ 'COMMON.LOGS' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-workorder-details-logs
+                    [workorder]="workorderData"
+                    [logsList]="workorderLogs"
+                    [user]="user"
+                    [timezone]="timezone"
+                ></rise-workorder-details-logs>
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="{{ 'WORKORDERS.LABORS.SINGULAR' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-workorder-details-labors
+                    [workorder]="workorderData"
+                    [user]="user"
+                    [timezone]="timezone"
+                    [propertyAppType]="propertyAppType"
+                    (addLaborTriggered)="openAddLaborDialog()"
+                    (updateLaborTriggered)="openAddLaborDialog($event)"
+                    (deleteLaborTriggered)="deleteLaborDialog($event)"
+                    (openLaborDetailsTriggered)="openLaborDetails($event)"
+                ></rise-workorder-details-labors>
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="{{ 'COMMON.MATERIALS' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-workorder-details-materials
+                    [workorder]="workorderData"
+                    [user]="user"
+                    [timezone]="timezone"
+                    [propertyAppType]="propertyAppType"
+                    (addMaterialTriggered)="openAddMaterialDialog()"
+                    (updateMaterialTriggered)="openAddMaterialDialog($event)"
+                    (deleteMaterialTriggered)="deleteMaterialDialog($event)"
+                    (openMaterialDetailsTriggered)="openMaterialDetails($event)"
+                ></rise-workorder-details-materials>
+            </ng-template>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>
