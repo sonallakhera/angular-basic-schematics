@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ChargeCodesService } from '../../store/chargecodes.service';
+import { <%= classify(name) %>Service } from '../../store/<%= dasherize(name) %>.service';
 import { getAllParams } from './../../../../shared/helpers';
 
 @Injectable()
-export class ChargeCodeDetailsResolver implements Resolve<any> {
+export class <%= classify(name) %>Resolver implements Resolve<any> {
 
   constructor(
-    private chargeCodesService: ChargeCodesService
+    private <%= camelize(name) %>Service: <%= classify(name) %>Service
   ) {
   }
 
@@ -18,6 +18,6 @@ export class ChargeCodeDetailsResolver implements Resolve<any> {
 
     const params = getAllParams(route);
 
-    return this.chargeCodesService.getChargeCodeDetails(params.chargeCodeId);
+    return this.<%= camelize(name) %>Service.get<%= classify(name) %>Details(params.<%= camelize(name) %>Id);
   }
 }
