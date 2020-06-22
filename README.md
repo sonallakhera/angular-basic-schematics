@@ -25,11 +25,26 @@ npm i
 That's it! You are good to go!
 
 
-### Use Angular Basic Schematics
+### Use Angular Basic Schematics ( RISE Custom )
 
 To generate a basic angular module:
 ```
 NAME=<moduleName> npm run build:base-module
+```
+
+To generate a add dialog with form:
+```
+NAME=<moduleName> npm run build:add-dialog
+```
+
+To generate a details page:
+```
+NAME=<moduleName> npm run build:details-component
+```
+
+To generate a basic list page with table & filters:
+```
+NAME=<moduleName> npm run build:list-component
 ```
 
 

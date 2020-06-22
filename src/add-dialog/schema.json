@@ -1,0 +1,14 @@
+{
+    "id": "addDialog",
+    "title": "Creates add dialog component and form.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name of module"
+        }
+    },
+    "required": [
+        "name"
+    ]
+}

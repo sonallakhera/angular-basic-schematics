@@ -1,0 +1,14 @@
+{
+    "id": "detailsComponent",
+    "title": "Creates an item details component.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name of module"
+        },
+    },
+    "required": [
+        "name"
+    ]
+}
