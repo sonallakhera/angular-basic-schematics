@@ -1,0 +1,19 @@
+{
+    "id": "baseModule",
+    "title": "Creates a basic angular module with routes, services & module file.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name of module"
+        },
+        "path": {
+            "type": "string",
+            "description": "Path where the generated files should be stored"
+        }
+    },
+    "required": [
+        "name",
+        "path"
+    ]
+}

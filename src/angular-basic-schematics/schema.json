@@ -1,0 +1,11 @@
+{
+    "id": "angularBasicSchematics",
+    "title": "Angular Basic Schematics - Test Run",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "object",
+            "description": "Angular Basic Schematics - Test Property"
+        }
+    }
+}
