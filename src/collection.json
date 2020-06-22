@@ -1,11 +1,6 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "angular-basic-schematics": {
-      "description": "Angular Basic Schematics - Test Run",
-      "factory": "./angular-basic-schematics/index#angularBasicSchematics",
-      "schema": "./angular-basic-schematics/schema.json"
-    },
     "base-module": {
       "description": "Creates a basic angular module with routes, services & module file.",
       "factory": "./base-module/index#baseModule",
