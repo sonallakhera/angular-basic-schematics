@@ -1,0 +1,53 @@
+<rise-<%= dasherize(name) %>-details-toolbar
+    [<%= camelize(name) %>]="<%= camelize(name) %>Data"
+>
+    <span actionButton [routerLink]="buildRouteLink([ LINK_ROUTES.<%= name.toUpperCase %> ])">
+        <mat-icon class="tool-bar-icon ">arrow_back_ios</mat-icon>
+        <span
+            class="mat-h4 tool-bar-h4"
+        > {{ '<%= name.toUpperCase %>.BACK_TO_<%= name.toUpperCase %>' | translate | uppercase }} </span>
+    </span>
+</rise-<%= dasherize(name) %>-details-toolbar>
+
+<!-- <%= dasherize(name) %> full details section -->
+<div class="rb-wo-main-detail-container">
+    <!-- Wo details section -->
+    <div>
+        <rise-<%= dasherize(name) %>-details-info
+            [<%= camelize(name) %>]="<%= camelize(name) %>Data"
+            [timezone]="timezone"
+            [property]="property"
+            [propertyAppType]="propertyAppType"
+        ></rise-<%= dasherize(name) %>-details-info>
+    </div>
+</div>
+
+<!-- Tabs section - comments | log -->
+<div class="rb-c-card rb-u-gap-bottom no-padding">
+    <mat-tab-group mat-stretch-tabs>
+
+        <mat-tab label="{{ 'COMMON.COMMENTS' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-comment-threads
+                    [commentsList]="<%= camelize(name) %>Comments"
+                    [user]="user"
+                    [property]="property"
+                    [timezone]="timezone"
+                    [noDataMessage]="'<%= name.toUpperCase %>.COMMENTS.NO_DATA'"
+                    (addedComment)="addComment($event)"
+                ></rise-comment-threads>
+            </ng-template>
+        </mat-tab>
+
+        <mat-tab label="{{ 'COMMON.LOGS' | translate | uppercase }}">
+            <ng-template matTabContent>
+                <rise-<%= dasherize(name) %>-details-logs
+                    [<%= camelize(name) %>]="<%= camelize(name) %>Data"
+                    [logsList]="<%= camelize(name) %>Logs"
+                    [user]="user"
+                    [timezone]="timezone"
+                ></rise-<%= dasherize(name) %>-details-logs>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
