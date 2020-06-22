@@ -2,21 +2,41 @@
 
 Angular Basic Schematics is a basic schematic implementation that helps create basic angular components required in an application. Like tables, details pages, toolbars.
 
-### Requirements
+### Setup Angular Basic Schematics
 
-To start up with the ABS, `@angular/cli` and `@angular-devkit/schematics-cli` needs to be installed gobally in your system. 
+To start up with the ABS, `@angular/cli` and `@angular-devkit/schematics-cli` needs to be installed gobally in your system. Run below commands to get them installed.
+```
+npm i -g @angular/cli
+```
+```
+npm i -g @angular-devkit/schematics-cli
+```
 
-### Commands
+Then, clone the repository with below command in an independent location.
+```
+git clone https://github.com/sonallakhera/angular-basic-schematics.git
+```
+
+Install npm dependencies with below command.
+```
+npm i
+```
+
+That's it! You are good to go!
+
+
+### Use Angular Basic Schematics
 
 To generate a basic angular module:
 ```
-sudo NAME=<moduleName> npm run build:base-module
+NAME=<moduleName> npm run build:base-module
 ```
+
 
 ### Locate Your Build
 
 Find your build under `./dist/` folder.
 
 
-That's it!
+
  
