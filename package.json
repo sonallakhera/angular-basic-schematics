@@ -1,16 +1,28 @@
 {
   "name": "angular-basic-schematics",
   "version": "0.0.0",
-  "description": "A blank schematics",
+  "description": "Basic Angular Schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonallakhera/angular-basic-schematics.git"
+  },
   "keywords": [
-    "schematics"
+    "angular",
+    "basic",
+    "components",
+    "schematics",
+    "cli"
   ],
-  "author": "",
+  "author": "Sonal Lakhera",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonallakhera/angular-basic-schematics/issues"
+  },
+  "homepage": "https://github.com/sonallakhera/angular-basic-schematics#readme",
   "schematics": "./src/collection.json",
   "dependencies": {
     "@angular-devkit/core": "^9.1.9",
