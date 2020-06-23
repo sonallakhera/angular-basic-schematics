@@ -5,14 +5,13 @@
     <div body>
         <span>
 
-            <ng-container *ngFor="let actionButton of workorderActionButtons[workorder.work_order_status]">
+            <ng-container *ngFor="let actionButton of primaryActionButtons">
                 <button
                     mat-button
                     type="button"
                     color="{{ actionButton.color }}"
                     class="rb-c-btn"
                     (click)="actionButton.do()"
-                    *ngIf="!isPMWorkorder"
                 >
                     {{
                         actionButton.buttonLabel | translate | uppercase

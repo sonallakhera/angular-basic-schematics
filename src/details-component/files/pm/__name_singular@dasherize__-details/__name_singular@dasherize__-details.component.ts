@@ -26,15 +26,15 @@ import {
 
 
 @Component({
-  selector: 'app-<%= dasherize(name) %>-details',
-  templateUrl: './<%= dasherize(name) %>-details.component.html'
+  selector: 'app-<%= dasherize(name_singular) %>-details',
+  templateUrl: './<%= dasherize(name_singular) %>-details.component.html'
 })
-export class <%= classify(name) %>DetailsComponent implements OnInit {
+export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
 
   confirmationDialogRef: MatDialogRef<ConfirmationDialogComponent>;
 
   routeParams = {
-    <%= camelize(name) %>Id: null
+    <%= camelize(name_singular) %>Id: null
   };
 
   user: User;
@@ -42,9 +42,9 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
   propertyAppType: any;
   timezone: string;
   
-  <%= camelize(name) %>Data: any = {};
-  <%= camelize(name) %>Comments = [];
-  <%= camelize(name) %>Logs = [];
+  <%= camelize(name_singular) %>Data: any = {};
+  <%= camelize(name_singular) %>Comments = [];
+  <%= camelize(name_singular) %>Logs = [];
 
   LINK_ROUTES = LINK_ROUTES;
   ROUTES = ROUTES;
@@ -76,32 +76,32 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
 
   ngOnInit() {
     this.setUserData();
-    this.get<%= classify(name) %>Details();
+    this.get<%= classify(name_singular) %>Details();
   }
 
-  get<%= classify(name) %>Details(): void {
-    this.<%= camelize(name) %>Data = this.activatedRoute.snapshot.data.<%= camelize(name) %>;
+  get<%= classify(name_singular) %>Details(): void {
+    this.<%= camelize(name_singular) %>Data = this.activatedRoute.snapshot.data.<%= camelize(name_singular) %>;
   }
 
-  get<%= classify(name) %>Id(): any {
-    return this.routeParams.<%= camelize(name) %>Id;
+  get<%= classify(name_singular) %>Id(): any {
+    return this.routeParams.<%= camelize(name_singular) %>Id;
   }
 
   setUserData() {
     this.user = this.activatedRoute.snapshot.data.user;
   }
 
-  get<%= classify(name) %>() {
+  get<%= classify(name_singular) %>() {
     // add code to fetch <%= name.toLowerCase() %> data
   }
 
-  get<%= classify(name) %>Comments(): void {
-    this.<%= camelize(name) %>Service.get<%= classify(name) %>Comments(this.get<%= classify(name) %>Id()).subscribe(
+  get<%= classify(name_singular) %>Comments(): void {
+    this.<%= camelize(name) %>Service.get<%= classify(name_singular) %>Comments(this.get<%= classify(name_singular) %>Id()).subscribe(
       response => {
-        this.<%= camelize(name) %>Comments = response;
+        this.<%= camelize(name_singular) %>Comments = response;
 
         // modify data with assetUrl pipe to be transfered to shared module --
-        this.<%= camelize(name) %>Comments.map( comment =>
+        this.<%= camelize(name_singular) %>Comments.map( comment =>
           (comment.images || []).map( commentImage =>
             commentImage.url = this.assetUrlPipe.transform(commentImage.url, true)
           )
@@ -110,35 +110,35 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>_DETAILS.COMMENTS.ERROR.FETCH_LIST')
+          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.COMMENTS.ERROR.FETCH_LIST')
         );
       }
     );
   }
 
-  get<%= classify(name) %>Logs(): void {
-    this.<%= camelize(name) %>Service.get<%= classify(name) %>Logs(this.get<%= classify(name) %>Id()).subscribe(
+  get<%= classify(name_singular) %>Logs(): void {
+    this.<%= camelize(name) %>Service.get<%= classify(name_singular) %>Logs(this.get<%= classify(name_singular) %>Id()).subscribe(
       response => {
-        this.<%= camelize(name) %>Logs = response.data;
+        this.<%= camelize(name_singular) %>Logs = response.data;
       },
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>_DETAILS.LOGS.ERROR.FETCH_LIST')
+          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.LOGS.ERROR.FETCH_LIST')
         );
       }
     );
   }
 
   addComment(eventData: Event): void {
-    this.<%= camelize(name) %>Service.add<%= classify(name) %>Comment(this.get<%= classify(name) %>Id(), eventData).subscribe(
+    this.<%= camelize(name) %>Service.add<%= classify(name_singular) %>Comment(this.get<%= classify(name_singular) %>Id(), eventData).subscribe(
       response => {
-        this.get<%= classify(name) %>Comments();
+        this.get<%= classify(name_singular) %>Comments();
       },
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>_DETAILS.COMMENTS.ERROR.ADD_NEW')
+          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.COMMENTS.ERROR.ADD_NEW')
         );
       }
     );
@@ -146,15 +146,15 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
 
   // <%= name.toUpperCase() %> ACTION ---- 
   close<%= classify(name) %>(data) {
-    this.<%= camelize(name) %>Service.close<%= classify(name) %>(this.get<%= classify(name) %>Id(), data).subscribe(
+    this.<%= camelize(name) %>Service.close<%= classify(name_singular) %>(this.get<%= classify(name_singular) %>Id(), data).subscribe(
       () => {
         this.flashMessageService.displayMessage(
           this.translateService.instant(
-            '<%= name.toUpperCase() %>.<%= name.toUpperCase %>_ACTION_SUCCESS',
+            '<%= name.toUpperCase() %>.<%= name_singular.toUpperCase %>_ACTION_SUCCESS',
             { action: this.translateService.instant('COMMON.ACTION.CLOSED') }
           )
         );
-        this.get<%= classify(name) %>();
+        this.get<%= classify(name_singular) %>();
       },
       (res) => {
         this.httpValidationMessagesService.displayErrors(
@@ -166,32 +166,32 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
 
   // <%= name.toUpperCase() %> ACTION ---- 
   downloadPDF() {
-    return this.<%= camelize(name) %>Service.exportDetails(this.get<%= classify(name) %>Id()).subscribe();
+    return this.<%= camelize(name) %>Service.exportDetails(this.get<%= classify(name_singular) %>Id()).subscribe();
   }
 
   // REDIRECTION METHOD ---- 
-  goToEdit<%= classify(name) %>() {
+  goToEdit<%= classify(name_singular) %>() {
     this.router.navigate(
       buildRouteLink(
         [
           ROUTES.<%= name.toUpperCase() %>,
-          ROUTES.EDIT_<%= name.toUpperCase() %>
+          ROUTES.EDIT_<%= name_singular.toUpperCase() %>
         ],
-        { this.get<%= classify(name) %>Id() }
+        { this.get<%= classify(name_singular) %>Id() }
       )
     );
   }
 
-  openDelete<%= classify(name) %>Dialog() {
+  openDelete<%= classify(name_singular) %>Dialog() {
     this.openConfirmationDialog(
       this.translateService.instant('COMMON.CONFIRMATION'),
-      this.translateService.instant('<%= name.toUpperCase() %><%= name.toUpperCase() %>_DELETE_CONFIRMATION'),
-      this.delete<%= classify(name) %>.bind(this)
+      this.translateService.instant('<%= name.toUpperCase() %><%= name_singular.toUpperCase() %>_DELETE_CONFIRMATION'),
+      this.delete<%= classify(name_singular) %>.bind(this)
     );
   }
 
-  delete<%= classify(name) %>() {
-    this.<%= camelize(name) %>Service.delete<%= classify(name) %>(this.get<%= classify(name) %>Id()).subscribe(
+  delete<%= classify(name_singular) %>() {
+    this.<%= camelize(name) %>Service.delete<%= classify(name_singular) %>(this.get<%= classify(name_singular) %>Id()).subscribe(
       response => {
         this.flashMessageService.displayMessage(
           response.msg
@@ -199,7 +199,7 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
 
         this.router.navigate(
           this.buildRouteLink(
-            [ROUTES<%= name.toUpperCase() %>]
+            [ROUTES.<%= name.toUpperCase() %>]
           )
         );
       },
@@ -216,7 +216,7 @@ export class <%= classify(name) %>DetailsComponent implements OnInit {
       this.translateService.instant(message, params)
     );
 
-    this.get<%= classify(name) %>();
+    this.get<%= classify(name_singular) %>();
   }
 
   // CONFIRMATION DIALOG ---- 

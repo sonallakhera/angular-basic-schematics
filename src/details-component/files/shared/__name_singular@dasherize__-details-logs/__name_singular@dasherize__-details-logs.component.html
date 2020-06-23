@@ -1,6 +1,6 @@
 <div>
 
-  <div class="comments-list-container" *ngIf="logsList && logsList.length; else logsListEmpty">
+  <div class="comments-list-container" *ngIf="logsList?.length; else logsListEmpty">
     <div *ngFor="let log of logsList" class="comments-listing">
       <div class="profile-image inline-block vertical-align-middle">
         <rise-avatar
@@ -24,7 +24,7 @@
   <ng-template #logsListEmpty>
     <rise-no-data
       [showButton]="false"
-      [message]="'WORKORDERS.LOGS.NO_DATA'"
+      [message]="'<%= underscore(name).toUpperCase() %>.LOGS.NO_DATA'"
     ></rise-no-data>
   </ng-template>
 

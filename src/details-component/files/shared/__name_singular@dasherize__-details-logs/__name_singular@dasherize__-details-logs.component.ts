@@ -5,15 +5,15 @@ import { RISE_AVATAR } from '../../../constants/global';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'rise-workorder-details-logs',
-  templateUrl: './workorder-details-logs.component.html',
+  selector: 'rise-<%= dasherize(name_singular) %>-details-logs',
+  templateUrl: './<%= dasherize(name_singular) %>-details-logs.component.html',
   styleUrls: [
     './../../../assets/styles/global.scss'
   ]
 })
-export class WorkorderDetailsLogsComponent {
+export class <%= classify(name_singular) %>DetailsLogsComponent {
 
-  @Input() workorder: any = {};
+  @Input() <%= camelize(name_singular) %>: any = {};
   @Input() logsList: [];
   @Input() user: any;
   @Input() timezone: string;
