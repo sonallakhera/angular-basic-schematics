@@ -1,12 +1,17 @@
 <div class="rb-c-card rb-u-gap-bottom">
 
     <div class="rb-c-card__header display--flex rb-u-flex--space-between">
-        <span class="title-sm title title-header title-xs">{{ get<%= classify(name_singular) %>Heading() }}</span>
+        <span 
+            class="title-sm title title-header title-xs"
+        >{{ get<%= classify(name_singular) %>Heading() }}</span>
     </div>
 
     <mat-divider class="rb-u-gap-bottom"></mat-divider>
 
-    <div class="vertical-align-middle profile-image inline-block rb-u-gap-bottom" *ngIf="<%= camelize(name_singular) %>.author">
+    <div 
+        class="vertical-align-middle profile-image inline-block rb-u-gap-bottom"
+        *ngIf="<%= camelize(name_singular) %>.author"
+    >
         <rise-avatar
             [size]="RISE_AVATAR.SIZE.LARGE"
             [name]="getUserName(<%= camelize(name_singular) %>.author)"
@@ -18,14 +23,17 @@
     </div>
 
     <div class="profile-wrapper">
-        <div class="profile-title title-color"
+        <div
+            class="profile-title title-color"
             *ngIf="<%= camelize(name_singular) %>.author"
             [riseOpenUserDetails]="<%= camelize(name_singular) %>.author"
             [propertyAppType]="propertyAppType"
         >
             {{ getUserName(<%= camelize(name_singular) %>.author) }}
         </div>
-        <p class="profile-subtitle"> {{ <%= camelize(name_singular) %>.created | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</p>
+        <p
+            class="profile-subtitle"
+        > {{ <%= camelize(name_singular) %>.created | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</p>
     </div>
 
     <ng-container>
@@ -37,14 +45,19 @@
         *ngIf="<%= camelize(name_singular) %>.images && <%= camelize(name_singular) %>.images.length" [options]="getGalleryOptions(
         <%= camelize(name_singular) %>.images.length,
         RISE_NGX_GALLERY.DEFAULT.COLUMNS,
-        _NGX_GALLERY.DEFAULT.ROW_HEIGHT)" [images]="getGalleryImages(<%= camelize(name_singular) %>.images)">
-    </ngx-gallery>
+        _NGX_GALLERY.DEFAULT.ROW_HEIGHT)"
+        [images]="getGalleryImages(<%= camelize(name_singular) %>.images)"
+    ></ngx-gallery>
 
     <mat-divider class="rb-u-gap-bottom"></mat-divider>
 
     <dl class="rb-c-form-two-section rb-u-gap-bottom">
-        <ng-container *ngFor="let key of objectKeys(<%= camelize(name_singular) %>DetailsList)">
-            <ng-container *ngIf="(<%= camelize(name_singular) %>[key] || <%= camelize(name_singular) %>[key] === false)">
+        <ng-container 
+            *ngFor="let key of objectKeys(<%= camelize(name_singular) %>DetailsList)"
+        >
+            <ng-container
+                *ngIf="(<%= camelize(name_singular) %>[key] || <%= camelize(name_singular) %>[key] === false)"
+            >
                 <ng-container
                     *ngIf="!<%= camelize(name_singular) %>DetailsList[key].disable"
                     [ngTemplateOutlet]="<%= camelize(name_singular) %>DetailsList[key].templateType
@@ -73,8 +86,9 @@
             <dd class="text-right">{{ getUserName(notifyUser) }}</dd>
 
             <dt class="opacity">{{ (getUserType(notifyUser) | translate) + ' Phone' }}</dt>
-            <dd class="text-right">{{ (notifyUser.phone_no | formatPhoneNumber)
-        || ('COMMON.EMPTY_FIELD' | translate) }}</dd>
+            <dd class="text-right">
+                {{ (notifyUser.phone_no | formatPhoneNumber) || ('COMMON.EMPTY_FIELD' | translate) }}
+            </dd>
         </dl>
     </ng-container>
 
@@ -83,7 +97,9 @@
 
         <dl>
             <dt>{{ 'COMMON.DESCRIPTION' | translate }}</dt>
-            <dd class="description opacity"> <div [innerHTML]="<%= camelize(name_singular) %>.description"></div></dd>
+            <dd class="description opacity">
+                <div [innerHTML]="<%= camelize(name_singular) %>.description"></div>
+            </dd>
         </dl>
     </ng-container>
 

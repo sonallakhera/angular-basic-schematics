@@ -24,7 +24,7 @@ export class <%= classify(name_singular) %>DetailsToolbarComponent implements On
 
   @Output() eventTriggered = new EventEmitter();
 
-  public actions: any = [];
+  public secondaryActions: any = [];
 
   public primaryActionButtons = [
     {
@@ -49,7 +49,7 @@ export class <%= classify(name_singular) %>DetailsToolbarComponent implements On
   }
 
   initializeActionsArray(): void {
-    this.actions = [
+    this.secondaryActions = [
       {
         buttonLabel: this.translate.instant('<%= underscore(name).toUpperCase %>.ACTIONS.EDIT'),
         action: () => { this.eventTriggered.emit(); },
@@ -63,6 +63,7 @@ export class <%= classify(name_singular) %>DetailsToolbarComponent implements On
   }
 
   action<%= classify(name_singular) %>() {
+    // for some additional code triggering event
     this.eventTriggered.emit();
   }
 }

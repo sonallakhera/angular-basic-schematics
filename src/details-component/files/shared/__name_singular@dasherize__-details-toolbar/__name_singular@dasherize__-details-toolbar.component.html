@@ -19,14 +19,21 @@
                 </button>
             </ng-container>
 
-            <button mat-icon-button [matMenuTriggerFor]="beforeMenu"
-                attr.aria-label="{{ 'COMMONS.ACTIONS' | translate }}">
+            <button 
+                mat-icon-button 
+                [matMenuTriggerFor]="beforeMenu"
+                attr.aria-label="{{ 'COMMONS.ACTIONS' | translate }}"
+            >
                 <mat-icon>more_vert</mat-icon>
             </button>
 
             <mat-menu #beforeMenu="matMenu" xPosition="before">
-                <button mat-menu-item *ngFor="let action of actions" (click)="action.action()"
-                    [disabled]="action.disabled">
+                <button
+                    mat-menu-item
+                    *ngFor="let action of secondaryActions"
+                    (click)="action.action()"
+                    [disabled]="action.disabled"
+                >
                     {{ action.buttonLabel }}
                 </button>
             </mat-menu>
