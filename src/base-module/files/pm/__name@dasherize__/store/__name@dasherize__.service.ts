@@ -10,7 +10,7 @@ import { appendParams } from './../../../shared/helpers';
 import { FILES_TYPES } from 'rise-shared-module-frontend/src/constants/files';
 
 const ENDPOINTS = {
-  <%= name.toUpperCase() %>: '/<%= dasherize(name) %>',
+  <%= underscore(name).toUpperCase() %>: '/<%= dasherize(name) %>',
 };
 
 @Injectable()

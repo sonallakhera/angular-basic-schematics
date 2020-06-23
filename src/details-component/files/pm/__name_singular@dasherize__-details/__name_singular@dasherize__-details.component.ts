@@ -110,7 +110,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.COMMENTS.ERROR.FETCH_LIST')
+          this.translateService.instant('<%= underscore(name).toUpperCase() %>.DETAILS.COMMENTS.ERROR.FETCH_LIST')
         );
       }
     );
@@ -124,7 +124,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.LOGS.ERROR.FETCH_LIST')
+          this.translateService.instant('<%= underscore(name).toUpperCase() %>.DETAILS.LOGS.ERROR.FETCH_LIST')
         );
       }
     );
@@ -138,7 +138,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
       response => {
         this.httpValidationMessagesService.displayErrors(
           response.error,
-          this.translateService.instant('<%= name.toUpperCase() %>.DETAILS.COMMENTS.ERROR.ADD_NEW')
+          this.translateService.instant('<%= underscore(name).toUpperCase() %>.DETAILS.COMMENTS.ERROR.ADD_NEW')
         );
       }
     );
@@ -150,7 +150,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
       () => {
         this.flashMessageService.displayMessage(
           this.translateService.instant(
-            '<%= name.toUpperCase() %>.<%= name_singular.toUpperCase %>_ACTION_SUCCESS',
+            '<%= underscore(name).toUpperCase() %>.<%= name_singular.toUpperCase %>_ACTION_SUCCESS',
             { action: this.translateService.instant('COMMON.ACTION.CLOSED') }
           )
         );
@@ -158,7 +158,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
       },
       (res) => {
         this.httpValidationMessagesService.displayErrors(
-          res.error, '<%= name.toUpperCase() %>.VALIDATION'
+          res.error, '<%= underscore(name).toUpperCase() %>.VALIDATION'
         );
       }
     );
@@ -174,8 +174,8 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
     this.router.navigate(
       buildRouteLink(
         [
-          ROUTES.<%= name.toUpperCase() %>,
-          ROUTES.EDIT_<%= name_singular.toUpperCase() %>
+          ROUTES.<%= underscore(name).toUpperCase() %>,
+          ROUTES.EDIT_<%= underscore(name_singular).toUpperCase() %>
         ],
         { this.get<%= classify(name_singular) %>Id() }
       )
@@ -185,7 +185,7 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
   openDelete<%= classify(name_singular) %>Dialog() {
     this.openConfirmationDialog(
       this.translateService.instant('COMMON.CONFIRMATION'),
-      this.translateService.instant('<%= name.toUpperCase() %><%= name_singular.toUpperCase() %>_DELETE_CONFIRMATION'),
+      this.translateService.instant('<%= underscore(name).toUpperCase() %><%= underscore(name_singular).toUpperCase() %>_DELETE_CONFIRMATION'),
       this.delete<%= classify(name_singular) %>.bind(this)
     );
   }
@@ -199,13 +199,13 @@ export class <%= classify(name_singular) %>DetailsComponent implements OnInit {
 
         this.router.navigate(
           this.buildRouteLink(
-            [ROUTES.<%= name.toUpperCase() %>]
+            [ROUTES.<%= underscore(name).toUpperCase() %>]
           )
         );
       },
       response => {
         this.httpValidationMessagesService.displayErrors(
-          response.error, '<%= name.toUpperCase() %>.VALIDATION'
+          response.error, '<%= underscore(name).toUpperCase() %>.VALIDATION'
         );
       }
     );
