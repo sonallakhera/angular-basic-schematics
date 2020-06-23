@@ -11,6 +11,7 @@ import { isNil } from 'lodash';
 import { updateMomentTimeZoneOnly, convertDateFilterWithTimeZone } from 'rise-shared-module-frontend/src/helpers/global.helper';
 import { buildRouteLink } from 'src/app/shared/helpers';
 import { User } from '../../../shared/store';
+import { findTableSettings } from 'rise-shared-module-frontend/src/helpers/table-settings.helper';
 
 // services & pipes
 import { AssetUrlPipe } from '../../../shared/pipes/asset-url.pipe';
@@ -24,11 +25,17 @@ import { TableFiltersService } from './../../../shared/services/table-filters.se
 // constants
 import { MODAL_WIDTHS, MODAL_VIEW_PORT_WIDTH, MODAL_VIEW_PORT_HEIGHTS } from 'rise-shared-module-frontend/src/constants/dialogs';
 import { ROUTES } from './../../../shared/constants';
+import {
+  TABLES
+} from 'rise-shared-module-frontend/src/constants/table-settings/table-settings';
 
 // components
 import { ConfirmationDialogComponent } from '../../../shared/components/dialogs/confirmation/confirmation-dialog.component';
 import { RiseUserDataService } from 'src/app/shared/services/rise-user-data.service';
 import { RiseUserData } from 'rise-shared-module-frontend/src/models/interfaces/rise-user-data.interface';
+import {
+  TableSettingsDialogComponent
+} from '../../../shared/components/table-settings-dialog/table-settings-dialog.component';
 
 
 const DEFAULT_NUMBER_OF_RESULTS = 25;
@@ -76,6 +83,7 @@ export class <%= classify(name_singular) %>ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.<%= camelize(name_singular) %>TableSettings = findTableSettings(TABLES.<%= underscore(name).toUpperCase() %>);
     this.setUser();
     this.prepareFilters();
   }
@@ -87,6 +95,8 @@ export class <%= classify(name_singular) %>ListComponent implements OnInit {
 
   setUser() {
     this.user = this.activatedRoute.snapshot.data.user;
+
+    this.getUserTableSettings(this.user._id, this.<%= camelize(name_singular) %>TableSettings.type);
   }
 
   fetch<%= classify(name) %>(tableData) {
@@ -206,4 +216,31 @@ export class <%= classify(name_singular) %>ListComponent implements OnInit {
     );
   }
 
+  getUserTableSettings(userId, type) {
+    this.tableSettingsService.getByUserAndType(userId, type)
+      .subscribe((settings) => {
+        this.userTableSettings = settings;
+      });
+  }
+  
+  openTableSettingsDialog() {
+    const defaultProperty = this.user.property_id;
+    const config = new MatDialogConfig();
+    config.width = MODAL_WIDTHS.MEDIUM;
+    config.data = {
+      type: this.<%= camelize(name_singular) %>TableSettings.type,
+      userId: this.user._id,
+      allowedTableSettings: this.<%= camelize(name_singular) %>TableSettings.allowedSettings,
+      existingTableSettings: this.userTableSettings,
+      disabledTableSettings: this.<%= camelize(name_singular) %>TableSettings.defaultSettings,
+      manageTableSettings: (settingsId, data) => {
+        this.updateTableSettings(settingsId, data);
+        this.tableSettingsDialogComponent.close();
+      }
+    };
+    this.tableSettingsDialogComponent = this.dialog.open(
+      TableSettingsDialogComponent,
+      config
+    );
+  }
 }

@@ -41,16 +41,20 @@ export class <%= classify(name) %>TableComponent {
     count: number
   };
   @Input() isDetailsPage: boolean;
+  @Output() bulkActionsTriggered = new EventEmitter<any>();
 
   @Output() tableUpdated = new EventEmitter<any>();
   @Output() goto<%= classify(name_singular) %> = new EventEmitter<any>();
   @Output() exportFileTriggered = new EventEmitter<any>();
   @Output() downloadPdfTriggered = new EventEmitter<any>();
+  @Output() openTableSettingsTriggered = new EventEmitter<any>();
 
-  bulkActionsTrigger: any = {
+  rowActionsTrigger: any = {
     'ACTION_OPEN': this.goto<%= classify(name_singular) %>,
     'ACTION_DOWNLOAD_AS_PDF': this.downloadPdfTriggered,
   };
+  selectedBulkAction: any;
+  bulkActions = [];
 
   displayedColumns: string[] = [
     'service_number',
@@ -134,7 +138,7 @@ export class <%= classify(name) %>TableComponent {
   }
 
   selectedAction(<%= camelize(name_singular) %>Id: any, action: any) {
-    this.bulkActionsTrigger[action].emit(<%= camelize(name_singular) %>Id);
+    this.rowActionsTrigger[action].emit(<%= camelize(name_singular) %>Id);
   }
 
   triggerExportFile(exportType: { type: string, download_type: string }) {
@@ -143,6 +147,18 @@ export class <%= classify(name) %>TableComponent {
       page: this.paginator.pageIndex + 1,
       pageSize: this.paginator.pageSize
     });
+  }
+
+  triggerBulkAction(action: string) {
+    this.bulkActionsTriggered.emit({
+      action: action,
+      <%= camelize(name_singular) %>Ids: map(this.selection.selected, (<%= camelize(name_singular) %>: any) => <%= camelize(name_singular) %>._id)
+    });
+    this.selection.clear();
+  }
+
+  openTableSettings() {
+    this.openTableSettingsTriggered.emit();
   }
 
   getUserName(user: any): string {

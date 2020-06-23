@@ -117,12 +117,52 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+</div>
+
+<div class="rb-c-table--footer">
+    <div class="rb-select-btn-group">
+        <a
+            *ngIf="!hideTableSettings"
+            mat-button
+            [matTooltip]="'COMMON.TABLE_SETTINGS.TITLE' | translate"
+            (click)="openTableSettings()"
+        >
+            <mat-icon svgIcon="cog" size="sm"></mat-icon>
+        </a>
+
+        <!-- TODO: remove condition in case of multiple bulk action -->
+        <ng-container *ngIf="bulkActions?.length">
+            <button
+                mat-icon-button
+                [matMenuTriggerFor]="bulkActionsMenu"
+                [disabled]="!isSelectionActive"
+            >
+                {{ 'COMMON.SELECT_ACTION' | translate }}
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #bulkActionsMenu="matMenu">
+                <button
+                    mat-menu-item
+                    *ngFor="let action of bulkActions"
+                    (click)="triggerBulkAction(action)"
+                >
+                    <span>
+                        {{
+                            ( '<%= underscore(name).toUpperCase() %>.BULK_ACTIONS.' + (action | uppercase) )
+                            | translate
+                        }}
+                    </span>
+                </button>
+            </mat-menu>
+        </ng-container>
+    </div>
 
     <mat-paginator
         [length]="totalNumberOfResults"
-        [pageSize]="perPage"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
         [pageSizeOptions]="pageSizeOptions"
-        showFirstLastButtons>
+        showFirstLastButtons
+    >
     </mat-paginator>
-
 </div>
