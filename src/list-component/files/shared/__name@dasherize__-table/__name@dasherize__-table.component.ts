@@ -1,3 +1,4 @@
+// libraries
 import { Component, Input, ViewChild, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import {
   MatPaginator,
@@ -5,15 +6,20 @@ import {
 } from '@angular/material';
 import { merge } from 'rxjs';
 import { startWith, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { omit } from 'lodash';
 
+// constants
 import { DATETIME_FORMATS } from './../../../constants/dateFormats';
 import { FILES_TYPES } from './../../../constants/files';
-const PAGE_OPTIONS = [25, 50, 75, 100, 250, 500, 1000];
 import { RISE_AVATAR } from '../../../constants/global';
-import { TranslateService } from '@ngx-translate/core';
 import { PROPERTY_TYPES, DEFAULT_PROPERTY_TYPE } from '../../../constants/properties';
-import { RiseUserData } from '../../../models/interfaces/rise-user-data.interface';
 import { DEFAULT_TIMEZONE } from '../../../constants/dateFormats';
+
+// interfaces
+import { RiseUserData } from '../../../models/interfaces/rise-user-data.interface';
+
+const PAGE_OPTIONS = [25, 50, 75, 100, 250, 500, 1000];
 
 @Component({
   selector: 'rise-<%= dasherize(name) %>-table',
@@ -24,7 +30,7 @@ import { DEFAULT_TIMEZONE } from '../../../constants/dateFormats';
   ]
 })
 
-export class AssignmentsTableComponent {
+export class <%= classify(name) %>TableComponent {
 
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   @ViewChild(MatSort) public sort: MatSort;
@@ -37,34 +43,20 @@ export class AssignmentsTableComponent {
   @Input() isDetailsPage: boolean;
 
   @Output() tableUpdated = new EventEmitter<any>();
-  @Output() deleteAssignmentTriggered = new EventEmitter<any>();
-  @Output() editAssignmentTriggered = new EventEmitter<any>();
-  @Output() gotoAssignment = new EventEmitter<any>();
-  @Output() deactivateAssignmentTriggered = new EventEmitter<any>();
-  @Output() activateAssignmentTriggered = new EventEmitter<any>();
-  @Output() downloadPdfTriggered = new EventEmitter<any>();
+  @Output() goto<%= classify(name_singular) %> = new EventEmitter<any>();
   @Output() exportFileTriggered = new EventEmitter<any>();
-  @Output() reassignAssignmentTriggered = new EventEmitter<any>();
-  @Output() openAssignmentCategoryTriggered = new EventEmitter<any>();
+  @Output() downloadPdfTriggered = new EventEmitter<any>();
 
   bulkActionsTrigger: any = {
-    'ACTION_DELETE': this.deleteAssignmentTriggered,
-    'ACTION_DEACTIVATE': this.deactivateAssignmentTriggered,
-    'ACTION_ACTIVATE': this.activateAssignmentTriggered,
-    'ACTION_OPEN': this.gotoAssignment,
-    'ACTION_EDIT': this.editAssignmentTriggered,
+    'ACTION_OPEN': this.goto<%= classify(name_singular) %>,
     'ACTION_DOWNLOAD_AS_PDF': this.downloadPdfTriggered,
-    'ACTION_REASSIGN': this.reassignAssignmentTriggered,
-    'ACTION_CATEGORY_OPEN': this.openAssignmentCategoryTriggered,
   };
 
   displayedColumns: string[] = [
     'service_number',
-    'unit_number',
-    'assignment_category_name',
-    'resident',
-    'created',
     'author.firstname',
+    'unit_number',
+    'created',
     'status',
     'actions'
   ];
@@ -86,7 +78,7 @@ export class AssignmentsTableComponent {
   ngAfterViewInit() {
     this.listenChanges();
     if (this.isDetailsPage) {
-      this.displayedColumns.pop();
+      omit(this.displayedColumns, 'actions')
     }
   }
 
@@ -104,13 +96,6 @@ export class AssignmentsTableComponent {
 
   get totalNumberOfResults() {
     return this.data ? this.data.count : 0;
-  }
-
-  getLabel(label: string): string {
-    const unitText = `COMMON.${label}.${
-      PROPERTY_TYPES[this.riseUserData.app_type] || DEFAULT_PROPERTY_TYPE
-      }`;
-    return this.translate.instant(unitText);
   }
 
   get propertyAppType() {
@@ -148,16 +133,8 @@ export class AssignmentsTableComponent {
       });
   }
 
-  selectedAction(assignmentId: any, action: any) {
-    this.bulkActionsTrigger[action].emit(assignmentId);
-  }
-
-  editAssignment(assignment: Object) {
-    this.editAssignmentTriggered.emit(assignment);
-  }
-
-  displayDeactivateButton(assignment: any) {
-    return assignment.status;
+  selectedAction(<%= camelize(name_singular) %>Id: any, action: any) {
+    this.bulkActionsTrigger[action].emit(<%= camelize(name_singular) %>Id);
   }
 
   triggerExportFile(exportType: { type: string, download_type: string }) {
@@ -170,5 +147,12 @@ export class AssignmentsTableComponent {
 
   getUserName(user: any): string {
     return user && user.firstname ? `${user.firstname} ${user.lastname}` : this.translate.instant('COMMON.USER_UNAVAILABLE');
+  }
+
+  getLabel(label: string): string {
+    const unitText = `COMMON.${label}.${
+      PROPERTY_TYPES[this.riseUserData.app_type] || DEFAULT_PROPERTY_TYPE
+      }`;
+    return this.translate.instant(unitText);
   }
 }
