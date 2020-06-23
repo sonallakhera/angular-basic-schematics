@@ -1,0 +1,75 @@
+<div>
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="rb-c-filter-form">
+            <mat-form-field>
+                <input
+                    matInput
+                    [placeholder]="'<%= underscore(name).toUpperCase() %>.SERVICE_NUMBER' | translate"
+                    formControlName="service_number"
+                    name="service_number"
+                    autocomplete="off"
+                >
+            </mat-form-field>
+
+            <mat-form-field>
+                <input
+                    matInput
+                    [placeholder]="getLabel('SELECT_UNIT_TEXT')" 
+                    [matAutocomplete]="unitsAutocomplete"
+                    formControlName="unit" 
+                    name="unit" 
+                    autocomplete="off"
+                >
+                <mat-autocomplete 
+                    #unitsAutocomplete="matAutocomplete" 
+                    [displayWith]="displaySelectedUnit"
+                >
+                    <mat-option *ngFor="let unit of units | async" [value]="unit">
+                        <span>{{ unit.unit_number }}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <input
+                    ngxDaterangepickerMd 
+                    matInput 
+                    placeholder="Choose date"
+                    [placeholder]="'<%= underscore(name).toUpperCase() %>.CREATION_DATE_RANGE' | translate" 
+                    formControlName="creation_date_range"
+                    name="creation_date_range" 
+                    autocomplete="off" 
+                    [showClearButton]="true"
+                />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ '<%= underscore(name).toUpperCase() %>.STATUS' | translate }}</mat-label>
+                <mat-select formControlName="<%= underscore(name_singular) %>_status">
+                    <mat-option></mat-option>
+                    <mat-option 
+                        *ngFor="let <%= camelize(name_singular) %>Statuses of <%= camelize(name_singular) %>Statuses" 
+                        [value]="<%= camelize(name_singular) %>Statuses"
+                    >
+                        <span>{{ ('<%= underscore(name).toUpperCase() %>.STATUSES.' + <%= camelize(name_singular) %>Statuses) | translate }}</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="text-right rb-u-gap-top-negative rb-u-gap-bottom--lg">
+            <button 
+                class="rb-unfill-btn rb-u-gap-right" 
+                mat-raised-button 
+                type="button" 
+                (click)="resetForm()"
+            >
+                {{ 'COMMON.RESET' | translate }}
+            </button>
+            <button class="rb-fill-btn" mat-raised-button type="submit">
+                {{ 'COMMON.SUBMIT' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

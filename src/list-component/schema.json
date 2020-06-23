@@ -1,0 +1,19 @@
+{
+    "id": "listComponent",
+    "title": "Creates a list component along with table & filters.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name of module. Generaly Plural."
+        },
+        "name_singular": {
+            "type": "string",
+            "description": "Singular verbiage for module name."
+        }
+    },
+    "required": [
+        "name",
+        "name_singular"
+    ]
+}

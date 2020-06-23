@@ -1,0 +1,41 @@
+{
+  "name": "angular-basic-schematics",
+  "version": "0.0.0",
+  "description": "Basic Angular Schematics",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && jasmine src/**/*_spec.js",
+    "build:base-module": "rm -rf ./dist/ && npm run-script build && schematics .:base-module --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:add-form": "rm -rf ./dist/ && npm run-script build && schematics .:add-form --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:list-component": "rm -rf ./dist/ && npm run-script build && schematics .:list-component --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:details-component": "rm -rf ./dist/ && npm run-script build && schematics .:details-component --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonallakhera/angular-basic-schematics.git"
+  },
+  "keywords": [
+    "angular",
+    "basic",
+    "components",
+    "schematics",
+    "cli"
+  ],
+  "author": "Sonal Lakhera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonallakhera/angular-basic-schematics/issues"
+  },
+  "homepage": "https://github.com/sonallakhera/angular-basic-schematics#readme",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^9.1.9",
+    "@angular-devkit/schematics": "^9.1.9",
+    "typescript": "~3.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.1",
+    "@types/jasmine": "~3.5.0",
+    "jasmine": "^3.5.0"
+  }
+}
