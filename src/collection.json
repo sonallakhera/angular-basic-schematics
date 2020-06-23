@@ -5,6 +5,21 @@
       "description": "Creates a basic angular module with routes, services & module file.",
       "factory": "./base-module/index#baseModule",
       "schema": "./base-module/schema.json"
+    },
+    "add-form": {
+      "description": "Creates add form component.",
+      "factory": "./add-form/index#addForm",
+      "schema": "./add-form/schema.json"
+    },
+    "list-component": {
+      "description": "Creates a list component along with table & filters.",
+      "factory": "./list-component/index#listComponent",
+      "schema": "./list-component/schema.json"
+    },
+    "details-component": {
+      "description": "Creates an item details component.",
+      "factory": "./details-component/index#detailsComponent",
+      "schema": "./details-component/schema.json"
     }
   }
 }

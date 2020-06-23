@@ -6,24 +6,24 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/components/shared.module';
 import { MaterialModule } from 'src/app/shared/components/material.module';
 import {
-  PackagesModule as PackagesSharedModule,
+  <%= classify(name) %>Module as <%= classify(name) %>SharedModule,
   SharedModule as CommonSharedModule
 } from 'rise-shared-module-frontend/src';
 
 // Services & Pipes
 import { AssetUrlPipe } from 'src/app/shared/pipes/asset-url.pipe';
-import { PackagesService } from './store/__name@dasherize__.service';
+import { <%= classify(name) %>Service } from './store/<%= dasherize(name) %>.service';
 
 // Constants
 import { ROUTES } from './routes';
 
 // Components
-import { PackagesListComponent } from './packages-list/packages-list.component';
-import { PackageDetailsComponent } from './package-details/package-details.component';
+import { <%= classify(name_singular) %>ListComponent } from './<%= dasherize(name_singular) %>-list/<%= dasherize(name_singular) %>-list.component';
+import { <%= classify(name_singular) %>DetailsComponent } from './<%= dasherize(name_singular) %>-details/<%= dasherize(name_singular) %>-details.component';
 
 const internalComponents = [
-  PackagesListComponent,
-  PackageDetailsComponent
+  <%= classify(name_singular) %>ListComponent,
+  <%= classify(name_singular) %>DetailsComponent
 ];
 
 @NgModule({
@@ -33,17 +33,17 @@ const internalComponents = [
   imports: [
     CommonModule,
     CommonSharedModule.forChild(),
-    PackagesSharedModule.forChild(),
+    <%= classify(name) %>SharedModule.forChild(),
     RouterModule.forChild(ROUTES),
     SharedModule,
     MaterialModule
   ],
   providers: [
     AssetUrlPipe,
-    PackagesService
+    <%= classify(name) %>Service
   ],
   entryComponents: [
 
   ]
 })
-export class PackagesModule { }
+export class <%= classify(name) %>Module { }

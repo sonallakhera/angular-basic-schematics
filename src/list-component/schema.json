@@ -1,6 +1,6 @@
 {
-    "id": "baseModule",
-    "title": "Creates a basic angular module with routes, services & module file.",
+    "id": "listComponent",
+    "title": "Creates a list component along with table & filters.",
     "type": "object",
     "properties": {
         "name": {

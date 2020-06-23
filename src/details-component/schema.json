@@ -1,6 +1,6 @@
 {
-    "id": "baseModule",
-    "title": "Creates a basic angular module with routes, services & module file.",
+    "id": "detailsComponent",
+    "title": "Creates an item details component.",
     "type": "object",
     "properties": {
         "name": {

@@ -1,0 +1,148 @@
+<div class="rb-c-card rb-u-gap-bottom">
+
+    <div class="rb-c-card__header display--flex rb-u-flex--space-between">
+        <span 
+            class="title-sm title title-header title-xs"
+        >{{ get<%= classify(name_singular) %>Heading() }}</span>
+    </div>
+
+    <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+    <div 
+        class="vertical-align-middle profile-image inline-block rb-u-gap-bottom"
+        *ngIf="<%= camelize(name_singular) %>.author"
+    >
+        <rise-avatar
+            [size]="RISE_AVATAR.SIZE.LARGE"
+            [name]="getUserName(<%= camelize(name_singular) %>.author)"
+            [src]="<%= camelize(name_singular) %>.author && <%= camelize(name_singular) %>.author.profile_img"
+            [round]="true"
+            [riseOpenUserDetails]="<%= camelize(name_singular) %>.author"
+            [propertyAppType]="propertyAppType"
+        ></rise-avatar>
+    </div>
+
+    <div class="profile-wrapper">
+        <div
+            class="profile-title title-color"
+            *ngIf="<%= camelize(name_singular) %>.author"
+            [riseOpenUserDetails]="<%= camelize(name_singular) %>.author"
+            [propertyAppType]="propertyAppType"
+        >
+            {{ getUserName(<%= camelize(name_singular) %>.author) }}
+        </div>
+        <p
+            class="profile-subtitle"
+        > {{ <%= camelize(name_singular) %>.created | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</p>
+    </div>
+
+    <ng-container>
+        <p class="opacity">{{ '' | translate }}:</p>
+        <p class="rb-u-gap-bottom">{{ '' || ('COMMON.EMPTY_FIELD' | translate) }}</p>
+    </ng-container>
+
+    <ngx-gallery 
+        *ngIf="<%= camelize(name_singular) %>.images && <%= camelize(name_singular) %>.images.length" [options]="getGalleryOptions(
+        <%= camelize(name_singular) %>.images.length,
+        RISE_NGX_GALLERY.DEFAULT.COLUMNS,
+        _NGX_GALLERY.DEFAULT.ROW_HEIGHT)"
+        [images]="getGalleryImages(<%= camelize(name_singular) %>.images)"
+    ></ngx-gallery>
+
+    <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+    <dl class="rb-c-form-two-section rb-u-gap-bottom">
+        <ng-container 
+            *ngFor="let key of objectKeys(<%= camelize(name_singular) %>DetailsList)"
+        >
+            <ng-container
+                *ngIf="(<%= camelize(name_singular) %>[key] || <%= camelize(name_singular) %>[key] === false)"
+            >
+                <ng-container
+                    *ngIf="!<%= camelize(name_singular) %>DetailsList[key].disable"
+                    [ngTemplateOutlet]="<%= camelize(name_singular) %>DetailsList[key].templateType
+                        ? <%= camelize(name_singular) %>DetailsList[key].templateType
+                        : textTemplate"
+                    [ngTemplateOutletContext]="{
+                        $implicit: {
+                            label: <%= camelize(name_singular) %>DetailsList[key].label,
+                            value: <%= camelize(name_singular) %>DetailsList[key].field
+                            ? <%= camelize(name_singular) %>[key][<%= camelize(name_singular) %>DetailsList[key].field]
+                            : <%= camelize(name_singular) %>[key]
+                        }
+                    }"
+                ></ng-container>
+            </ng-container>
+        </ng-container>
+    </dl>
+
+    <ng-container *ngIf="getNotifyUser() as notifyUser">
+        <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+        {{ (getUserType(notifyUser) | translate) + ' Information' }}
+
+        <dl class="rb-c-form-two-section rb-u-gap-bottom description">
+            <dt class="opacity">{{ (getUserType(notifyUser) | translate) + ' Name' }}</dt>
+            <dd class="text-right">{{ getUserName(notifyUser) }}</dd>
+
+            <dt class="opacity">{{ (getUserType(notifyUser) | translate) + ' Phone' }}</dt>
+            <dd class="text-right">
+                {{ (notifyUser.phone_no | formatPhoneNumber) || ('COMMON.EMPTY_FIELD' | translate) }}
+            </dd>
+        </dl>
+    </ng-container>
+
+    <ng-container *ngIf="<%= camelize(name_singular) %>.description">
+        <mat-divider class="rb-u-gap-bottom"></mat-divider>
+
+        <dl>
+            <dt>{{ 'COMMON.DESCRIPTION' | translate }}</dt>
+            <dd class="description opacity">
+                <div [innerHTML]="<%= camelize(name_singular) %>.description"></div>
+            </dd>
+        </dl>
+    </ng-container>
+
+</div>
+
+<!-- templates for <%= name_singular %> details defination list -->
+
+<ng-template #textTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value || ('COMMON.EMPTY_FIELD' | translate) }}</dd>
+</ng-template>
+
+<ng-template #dateTimeTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value | customDateFormat:timezone :MOMENT_DATETIME_FORMATS.DATETIME_12HR }}</dd>
+</ng-template>
+
+<ng-template #affirmationTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ (detail.value ? 'COMMON.YES' : 'COMMON.NO') | translate }}</dd>
+</ng-template>
+
+<ng-template #userTemplate let-detail>
+    <dt class="opacity grid-user-info-label">{{ detail.label | translate }}</dt>
+    <dd class="rb-grid-user-info text-right">
+        <rise-avatar
+            [size]="RISE_AVATAR.SIZE.SMALL"
+            [name]="getUserName(detail.value)"
+            [src]="detail.value?.profile_img"
+            [round]="true"
+            [riseOpenUserDetails]="detail.value"
+            [propertyAppType]="propertyAppType"
+        ></rise-avatar>
+        <p
+            [riseOpenUserDetails]="detail.value"
+            [propertyAppType]="propertyAppType"
+        >{{ getUserName(detail.value) }}</p>
+    </dd>
+</ng-template>
+
+<ng-template #assignGroupTemplate let-detail>
+    <dt class="opacity">{{ detail.label | translate }}</dt>
+    <dd class="text-right">{{ detail.value.name + ' (group)' }}</dd>
+</ng-template>
+
+<!-- templates for <%= name_singular %> details defination list -->

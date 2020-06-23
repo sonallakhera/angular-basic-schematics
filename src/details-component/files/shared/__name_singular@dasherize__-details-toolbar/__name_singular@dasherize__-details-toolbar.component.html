@@ -1,0 +1,42 @@
+<rise-common-toolbar>
+    <div header class="clickable">
+        <ng-content select="[actionButton]"></ng-content>
+    </div>
+    <div body>
+        <span>
+
+            <ng-container *ngFor="let actionButton of primaryActionButtons">
+                <button
+                    mat-button
+                    type="button"
+                    color="{{ actionButton.color }}"
+                    class="rb-c-btn"
+                    (click)="actionButton.do()"
+                >
+                    {{
+                        actionButton.buttonLabel | translate | uppercase
+                    }}
+                </button>
+            </ng-container>
+
+            <button 
+                mat-icon-button 
+                [matMenuTriggerFor]="beforeMenu"
+                attr.aria-label="{{ 'COMMONS.ACTIONS' | translate }}"
+            >
+                <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button
+                    mat-menu-item
+                    *ngFor="let action of secondaryActions"
+                    (click)="action.action()"
+                    [disabled]="action.disabled"
+                >
+                    {{ action.buttonLabel }}
+                </button>
+            </mat-menu>
+        </span>
+    </div>
+</rise-common-toolbar>

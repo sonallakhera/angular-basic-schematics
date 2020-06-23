@@ -1,6 +1,6 @@
 {
-    "id": "baseModule",
-    "title": "Creates a basic angular module with routes, services & module file.",
+    "id": "addForm",
+    "title": "Creates add form.",
     "type": "object",
     "properties": {
         "name": {
