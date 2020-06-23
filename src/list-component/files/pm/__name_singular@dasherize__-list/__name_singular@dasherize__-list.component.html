@@ -1,0 +1,24 @@
+<div class="rb-c-transactions-options-select">
+    <a class="tool-bar-h4 rb-u-cursor--pointer" (click)="openAdd<%= classify(name_singular) %>()">
+        {{ '<%= underscore(name).toUpperCase() %>.ADD_NEW' | translate }}
+    </a>
+</div>
+<rise-<%= dasherize(name_singular) %>-filters
+    [filters]="filters"
+    [riseUserData]="riseUserData"
+    [fetchUnits]="fetchUnits.bind(this)"
+    (submittedFilters)="setFilters($event)"
+></rise-<%= dasherize(name_singular) %>-filters>
+
+<div class="rb-u-gap-bottom">
+    <mat-divider></mat-divider>
+</div>
+
+<rise-<%= dasherize(name) %>-table
+    [data]="data"
+    [riseUserData]="riseUserData"
+    (tableUpdated)="fetch<%= classify(name) %>($event)"
+    (downloadPdfTriggered)="downloadPDF($event)"
+    (goto<%= classify(name_singular) %>)="goto<%= classify(name_singular) %>($event)"
+    (exportFileTriggered)="exportFile($event)"
+></rise-<%= dasherize(name) %>-table>

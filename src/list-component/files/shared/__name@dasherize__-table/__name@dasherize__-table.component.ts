@@ -16,10 +16,10 @@ import { RiseUserData } from '../../../models/interfaces/rise-user-data.interfac
 import { DEFAULT_TIMEZONE } from '../../../constants/dateFormats';
 
 @Component({
-  selector: 'rise-assignments-table',
-  templateUrl: './assignments-table.component.html',
+  selector: 'rise-<%= dasherize(name) %>-table',
+  templateUrl: './<%= dasherize(name) %>-table.component.html',
   styleUrls: [
-    './assignments-table.component.scss',
+    './<%= dasherize(name) %>-table.component.scss',
     './../../../assets/styles/global.scss'
   ]
 })
