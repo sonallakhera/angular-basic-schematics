@@ -18,12 +18,12 @@ import { <%= classify(name) %>Service } from './store/<%= dasherize(name) %>.ser
 import { ROUTES } from './routes';
 
 // Components
-import { <%= classify(name) %>ListComponent } from './<%= dasherize(name) %>-list/<%= dasherize(name) %>-list.component';
-import { <%= classify(name) %>DetailsComponent } from './<%= dasherize(name) %>-details/<%= dasherize(name) %>-details.component';
+import { <%= classify(name_singular) %>ListComponent } from './<%= dasherize(name_singular) %>-list/<%= dasherize(name_singular) %>-list.component';
+import { <%= classify(name_singular) %>DetailsComponent } from './<%= dasherize(name_singular) %>-details/<%= dasherize(name_singular) %>-details.component';
 
 const internalComponents = [
-  <%= classify(name) %>ListComponent,
-  <%= classify(name) %>DetailsComponent
+  <%= classify(name_singular) %>ListComponent,
+  <%= classify(name_singular) %>DetailsComponent
 ];
 
 @NgModule({

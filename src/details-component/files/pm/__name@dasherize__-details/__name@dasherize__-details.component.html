@@ -1,11 +1,11 @@
 <rise-<%= dasherize(name) %>-details-toolbar
     [<%= camelize(name) %>]="<%= camelize(name) %>Data"
 >
-    <span actionButton [routerLink]="buildRouteLink([ LINK_ROUTES.<%= name.toUpperCase %> ])">
+    <span actionButton [routerLink]="buildRouteLink([ LINK_ROUTES.<%= name.toUpperCase() %> ])">
         <mat-icon class="tool-bar-icon ">arrow_back_ios</mat-icon>
         <span
             class="mat-h4 tool-bar-h4"
-        > {{ '<%= name.toUpperCase %>.BACK_TO_<%= name.toUpperCase %>' | translate | uppercase }} </span>
+        > {{ '<%= name.toUpperCase() %>.BACK_TO_<%= name.toUpperCase() %>' | translate | uppercase }} </span>
     </span>
 </rise-<%= dasherize(name) %>-details-toolbar>
 
@@ -33,7 +33,7 @@
                     [user]="user"
                     [property]="property"
                     [timezone]="timezone"
-                    [noDataMessage]="'<%= name.toUpperCase %>.COMMENTS.NO_DATA'"
+                    [noDataMessage]="'<%= name.toUpperCase() %>.COMMENTS.NO_DATA'"
                     (addedComment)="addComment($event)"
                 ></rise-comment-threads>
             </ng-template>

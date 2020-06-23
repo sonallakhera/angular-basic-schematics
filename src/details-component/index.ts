@@ -15,7 +15,7 @@ import { __DIST } from './../constants';
 
 // You don't have to export the function as default. You can also have more than one rule factory
 // per file.
-export function baseModule(_options: any): Rule {
+export function detailsComponent(_options: any): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const folderPath = normalize(strings.dasherize(`${__DIST}`));
     let files = url('./files');

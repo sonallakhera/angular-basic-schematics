@@ -5,10 +5,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js",
-    "build:base-module": "rm -rf ./dist/ && npm build && schematics .:base-module --name=$NAME --dry-run=false",
-    "build:add-form": "rm -rf ./dist/ && npm build && schematics .:add-form --name=$NAME --dry-run=false",
-    "build:list-component": "rm -rf ./dist/ && npm build && schematics .:list-component --name=$NAME --dry-run=false",
-    "build:details-component": "rm -rf ./dist/ && npm build && schematics .:details-component --name=$NAME --dry-run=false"
+    "build:base-module": "rm -rf ./dist/ && npm run-script build && schematics .:base-module --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:add-form": "rm -rf ./dist/ && npm run-script build && schematics .:add-form --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:list-component": "rm -rf ./dist/ && npm run-script build && schematics .:list-component --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false",
+    "build:details-component": "rm -rf ./dist/ && npm run-script build && schematics .:details-component --name=$NAME --name_singular=$NAME_SINGULAR --dry-run=false"
   },
   "repository": {
     "type": "git",

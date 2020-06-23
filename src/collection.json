@@ -8,17 +8,17 @@
     },
     "add-form": {
       "description": "Creates add form component.",
-      "factory": "./add-form/index#baseModule",
+      "factory": "./add-form/index#addForm",
       "schema": "./add-form/schema.json"
     },
     "list-component": {
       "description": "Creates a list component along with table & filters.",
-      "factory": "./list-component/index#baseModule",
+      "factory": "./list-component/index#listComponent",
       "schema": "./list-component/schema.json"
     },
     "details-component": {
       "description": "Creates an item details component.",
-      "factory": "./details-component/index#baseModule",
+      "factory": "./details-component/index#detailsComponent",
       "schema": "./details-component/schema.json"
     }
   }

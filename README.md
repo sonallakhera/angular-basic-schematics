@@ -29,22 +29,22 @@ That's it! You are good to go!
 
 To generate a basic angular module:
 ```
-NAME=<moduleName> npm run build:base-module
+NAME=<moduleName> NAME_SINGULAR=<moduleNameSingular> npm run build:base-module
 ```
 
 To generate a add form:
 ```
-NAME=<moduleName> npm run build:add-form
+NAME=<moduleName> NAME_SINGULAR=<moduleNameSingular> npm run build:add-form
 ```
 
 To generate a details page:
 ```
-NAME=<moduleName> npm run build:details-component
+NAME=<moduleName> NAME_SINGULAR=<moduleNameSingular> npm run build:details-component
 ```
 
 To generate a basic list page with table & filters:
 ```
-NAME=<moduleName> npm run build:list-component
+NAME=<moduleName> NAME_SINGULAR=<moduleNameSingular> npm run build:list-component
 ```
 
 

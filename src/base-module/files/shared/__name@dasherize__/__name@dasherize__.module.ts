@@ -9,13 +9,13 @@ import { PipesModule } from './../../pipes';
 
 // components
 import { <%= classify(name) %>TableComponent } from './<%= dasherize(name) %>-table/<%= dasherize(name) %>-table.component';
-import { Add<%= classify(name) %>Component } from './add-<%= dasherize(name) %>/add-<%= dasherize(name) %>.component';
-import { <%= classify(name) %>FiltersComponent } from './<%= dasherize(name) %>-filters/<%= dasherize(name) %>-filters.component';
+import { Add<%= classify(name_singular) %>Component } from './add-<%= dasherize(name_singular) %>/add-<%= dasherize(name_singular) %>.component';
+import { <%= classify(name_singular) %>FiltersComponent } from './<%= dasherize(name_singular) %>-filters/<%= dasherize(name_singular) %>-filters.component';
 
 const INTERNAL_COMPONENTS = [
   <%= classify(name) %>TableComponent,
-  Add<%= classify(name) %>Component,
-  <%= classify(name) %>FiltersComponent,
+  Add<%= classify(name_singular) %>Component,
+  <%= classify(name_singular) %>FiltersComponent,
 ];
 
 @NgModule({

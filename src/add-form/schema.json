@@ -5,10 +5,15 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "Name of module"
+            "description": "Name of module. Generaly Plural."
+        },
+        "name_singular": {
+            "type": "string",
+            "description": "Singular verbiage for module name."
         }
     },
     "required": [
-        "name"
+        "name",
+        "name_singular"
     ]
 }
