@@ -18,7 +18,7 @@ export const ROUTES: Routes = [
     resolve: { user: UserResolverService }
   },
   {
-    path: APP_ROUTES.<%= name_singular.toUpperCase() %>_DETAILS,
+    path: APP_ROUTES.<%= underscore(name_singular).toUpperCase() %>_DETAILS,
     component: <%= classify(name_singular) %>DetailsComponent,
     resolve: { user: UserResolverService, <%= camelize(name_singular) %>: <%= classify(name_singular) %>Resolver }
   }
