@@ -243,4 +243,25 @@ export class <%= classify(name_singular) %>ListComponent implements OnInit {
       config
     );
   }
+
+  updateTableSettings(settingsId, data) {
+    const method = settingsId  ? 'updateTableSettings' : 'createTableSettings';
+
+    this.tableSettingsService[method]({
+      ...data,
+      type: this.<%= camelize(name_singular) %>TableSettings.type,
+      _id: settingsId
+    }).subscribe(() => {
+      const messageKey = settingsId
+        ? 'TABLE_SETTINGS.SUCCESSFULLY_UPDATED_SETTINGS'
+        : 'TABLE_SETTINGS.SUCCESSFULLY_CREATED_SETTINGS';
+      this.flashMessageService.displayMessage(this.translateService.instant(messageKey));
+
+      this.getUserTableSettings(this.user._id, this.<%= camelize(name_singular) %>TableSettings.type);
+    }, (res) => {
+      this.httpValidationMessagesService.displayErrors(
+        res.error, 'TABLE_SETTINGS.VALIDATION'
+      );
+    });
+  }
 }
